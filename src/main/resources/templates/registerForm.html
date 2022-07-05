@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <header>
+        <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+            <link rel="stylesheet" href="../static/css/style.css">
+          </head>
+    </header>
+<body>
+	<div class="loginContainer">
+        <form th:action="@{/register}" method="POST">
+            <h2>REGISTER</h2>
+            <div class="register">
+                <span><input type="text" placeholder="Username" required
+                        th:field="${credentials.username}"/></span>
+                <span th:if="${#fields.hasErrors('credentials.username')}"
+                    th:errors="${credentials.username}" th:style="'color:red'"></span>
+                <span><input type="password" placeholder="Password" required
+                        th:field="${credentials.password}"/></span>
+                <span th:if="${#fields.hasErrors('credentials.password')}"
+                    th:errors="${credentials.password}" th:style="'color:red'"></span>
+                <span><input type="text" placeholder="Nome" required
+                        th:field="${utente.nome}"/></span>
+                <span th:if="${#fields.hasErrors('utente.nome')}"
+                    th:errors="${utente.nome}" th:style="'color:red'"></span>
+                <span><input type="text" placeholder="Cognome" required
+                        th:field="${utente.cognome}"/></span>
+                <span th:if="${#fields.hasErrors('utente.cognome')}"
+                    th:errors="${utente.cognome}" th:style="'color:red'"></span>
+                <button type="submit">Register</button>
+            </div>
+        </form>
+	</div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+    <title>Piatto</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <div class="title">
+    <h2 th:if="!${modified}">Dettagli sul piatto</h2>
+    <h2 th:if="${modified}">Piatto aggiornato</h2>
+    </div>
+    <div class="flex-container" th:if="${piatto}">
+        <div class="flex">
+            <h2>Piatto:</h2>
+            <p th:text="'Nome: ' + ${piatto.nome}"></p>
+            <p th:text="'Descrizione: ' + ${piatto.descrizione}"></p>
+            <p th:text="'Chef: ' + ${piatto.chef.nome} + ' ' + ${piatto.chef.cognome}"></p>
+        </div>
+        <div class="flex">
+            <h2>
+                <a th:if=${admin} href="ingredienteForm.html" th:href="@{'/admin/ingrediente/form/addToPiatto/p=' + ${piatto.id}}">
+                    Ingredienti:
+                </a>
+                <span th:if=!${admin}>Ingredienti:<span>
+            </h2>
+            
+            <ul>
+                <li th:each="ingrediente : ${piatto.ingredienti}">
+                    <a href="ingrediente.html" th:href="@{'/ingrediente/get/' + ${ingrediente.id}}"
+                    th:text="${ingrediente.nome}"></a>
+                </li>
+            </ul>
+        </div>
+            <div class="flex">
+            <h2>Buffet conteneti il piatto:</h2>
+            <ul>
+                <li th:each="buffet : ${piatto.buffets}">
+                    <a href="buffet.html" th:href="@{'/buffet/get/' + ${buffet.id}}"
+                    th:text="${buffet.nome} + ': ' + ${buffet.descrizione}"></a>
+                </li>
+            </ul>
+            </div>
+    </div>
+    <div class="flex-container">
+    <form th:if=${admin} th:action="@{'/admin/piatto/form/modify/' + ${piatto.id}}" method="get" th:object="${piatto}">
+        <p><button type="submit">Modifica</button></p>
+    </form>
+    <form th:if=${admin} th:action="@{'/admin/piatto/delete/' + ${piatto.id}}" method="post" th:object="${piatto}">
+        <p><button type="submit">Elimina</button></p>
+    </form>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+      </head>
+    <title>Elenco</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <h2>INGREDIENTI:</h2>
+    <div>
+        <div th:if="${ingredienti.size()}">
+            <ul>
+                <li th:each="ingrediente : ${ingredienti}">
+                    <a href="ingrediente.html" th:href="@{'/ingrediente/get/' + ${ingrediente.id}}" 
+                    th:text="${ingrediente.nome}">Pasta</a>
+                    <span th:text="' (' + ${ingrediente.origine} + ')'"></span>
+                </li>
+            </ul>
+        </div>
+        <div th:if="!${ingredienti.size()}">
+            <h2>Non sono presenti ingredienti</h2>
+        </div>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

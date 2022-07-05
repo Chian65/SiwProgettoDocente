@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+      </head>
+    <title>Ingrediente</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <div class="title">
+        <h2 th:if="!${modified}">Dettagli sull'ingrediente</h2>
+        <h2 th:if="${modified}">Ingrediente aggiornato</h2>
+    </div>
+    <div class="flex-container" th:if="${ingrediente}">
+        <div class="flex">
+            <h2>Ingrediente:</h2>
+            <p th:text="'Nome: ' + ${ingrediente.nome}"></p>
+            <p th:text="'Origine: ' + ${ingrediente.origine}"></p>
+            <p th:text="'Descrizione: ' + ${ingrediente.descrizione}"></p>
+        </div>
+        <div class="flex">
+            <h2>Piatti correlati</h2>
+            <ul>
+                <li th:each="piatto : ${ingrediente.piatti}">
+                    <a href="piatto.html" th:href="@{'/piatto/get/' + ${piatto.id}}"
+                    th:text="'Piatto' +  ${piatto.nome} + ' di ' + ${piatto.chef.nome} + ' ' + ${piatto.chef.cognome}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex-container">
+        <form th:if=${admin} th:action="@{'/admin/ingrediente/form/modify/' + ${ingrediente.id}}" method="get" th:object="${ingrediente}">
+            <span><button type="submit">Modifica</button></span>
+        </form>
+        <form th:if=${admin} th:action="@{'/admin/ingrediente/delete/' + ${ingrediente.id}}" method="post" th:object="${ingrediente}">
+            <span><button type="submit">Elimina</button></span>
+        </form>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

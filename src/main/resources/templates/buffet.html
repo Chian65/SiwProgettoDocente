@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+    <title>Buffet</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <div class="title">
+        <h2 th:if="!${modified}">Dettagli sul buffet</h2>
+        <h2 th:if="${modified}">Buffet aggiornato</h2>
+    </div>
+    <div class="flex-container" th:if="${buffet}">
+        <div class="flex">
+            <h2>Buffet:</h2>
+            <p th:text="'Nome: ' + ${buffet.nome}"></p>
+            <p th:text="'Descrizione: ' + ${buffet.descrizione}"></p>
+            <p th:text="'Chef: ' + ${buffet.chef.nome} + ' ' + ${buffet.chef.cognome}"></p>
+        </div>
+        <div class="flex">
+            <h2>Piatti:</h2>
+            <ul>
+                <li th:each="piatto : ${buffet.piatti}">
+                    <a href="piatto.html" th:href="@{'/piatto/get/' + ${piatto.id}}" th:text="${piatto.nome}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex-container">
+        <form th:if=${admin} th:action="@{'/admin/piatto/form/addToBuffet/c=' + ${buffet.chef.id} + 'b=' + ${buffet.id}}" method="get">
+            <span><button type="submit">Gestisci piatti</button></span>
+        </form>
+        <form th:if=${admin} th:action="@{'/admin/buffet/form/modify/' + ${buffet.id}}" method="get" th:object="${buffet}">
+            <span><button type="submit">Modifica</button></span>
+        </form>
+        <form th:if=${admin} th:action="@{'/admin/buffet/delete/' + ${buffet.id}}" method="post" th:object="${buffet}">
+            <span><button type="submit">Elimina</button></span>
+        </form>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

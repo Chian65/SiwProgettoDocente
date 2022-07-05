@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+      </head>
+    <title>Select</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img src="/static/images/home.png"></a>
+    </header>
+    <h2>Seleziona gli ingredienti da aggiungere</h2>
+    <div class="listcontainer">
+        <form th:action="@{'/admin/piatto/' + *{piattoId} + '/add/ingredienti'}" method="post" th:object="${ingredientiSelectorDTO}">
+            <input type="hidden" th:field="*{piattoId}">
+            <div>
+                <ul>
+                    <li th:each="ingrediente : *{ingredienti}">
+                        <input type="checkbox" th:field="*{ingredientiSelected}" th:value="${ingrediente.id}">
+                        <label th:text="${ingrediente.nome}">Nome ingrediente</label>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <span><button type="submit">Aggiungi</button></span>
+              </div>
+        </form>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

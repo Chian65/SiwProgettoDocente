@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+      <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+    <title>Piatto</title>
+  </head>
+  <body>
+    <header th:replace="fragments/base.html :: home">
+      <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"/></a>
+    </header>
+    <h2>PIATTO:</h2>
+    <div>
+      <form th:action="@{/admin/piatto/add}" method="post" th:object="${piatto}">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{buffets}">
+        <input type="hidden" th:field="*{ingredienti}">
+        <div>
+          <span>Nome:</span>
+          <span><input type="text" th:field="*{nome}"></span>
+        </div>
+        <div>
+          <span>Descrizione:</span>
+          <span><input type="text" th:field="*{descrizione}"></span>
+        </div>
+        <div>
+          <span>Chef:</span>
+          <span>
+            <select th:field="*{chef}">
+              <option value="" disabled selected>Seleziona lo chef</option>
+              <option th:each="c : ${chefs}" th:value="${c.id}" th:text="${c.nome}"></option>
+            </select>
+          </span>
+        </div>
+        <div>
+          <span><button type="submit" th:if="${modifyForm}">Modifica</button></span>
+          <span><button type="submit" th:if="!${modifyForm}">Aggiungi</button></span>
+        </div>
+      </form>
+    </div>
+  </body>
+  <footer th:replace="fragments/base.html :: end"></footer>
+</html>

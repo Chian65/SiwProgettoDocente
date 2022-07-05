@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+      </head>
+    <title>Elenco</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <h2>CHEF:</h2>
+    <div>
+        <div th:if="${chefs.size()}">
+            <ul>
+                <li th:each="chef : ${chefs}">
+                    <a href="chef.html" th:href="@{'/chef/get/' + ${chef.id}}" th:text="${chef.nome} + ' ' + ${chef.cognome}"></a>
+                    <span th:text="'(' + ${chef.nazionalita} + ') - Piatti: ' + ${chef.piatti.size()} + ' - Buffet:' + ${chef.buffets.size()}"></span>
+                </li>
+            </ul>
+        </div>
+        <div th:if="!${chefs.size()}">
+            <h2>Non e' stato inserito alcuno chef</h2>
+        </div>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+      <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+  </head>
+  <body>
+    <!--<header th:replace="fragments/base.html :: intestazione"></header>-->
+    <header>
+      <a href="index.html" th:href="@{/logout}"><img class="logout-home" src="../static/images/logout.png" th:src="@{/images/logout.png}" alt="logout"></a>
+      <h1>CATERING</h1>
+    </header>
+    
+    <div class="container">
+
+      <div class="box">
+        <div class="title">
+          <div>
+            <a href="chefs.html" th:href="@{/chef/get/all}">
+            <img class="img-link" src="../static/images/chef.png" th:src="@{images/chef.png}">
+            </a>
+          </div>
+          <div class="entity">
+            <a href="chefs.html" th:href="@{/chef/get/all}">
+            Chef
+           </a>
+          </div>
+        </div>
+        <div class="button-container">
+          <a class="button" href="chefForm.html" th:if="${admin}" th:href="@{/admin/chef/form/add}">Aggiungi</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="title">
+          <div>
+            <a href="buffets.html" th:href="@{/buffet/get/all}">
+            <img class="img-link" src="../static/images/buffet.png" th:src="@{images/buffet.png}">
+          </a>
+          </div>
+          <div class="entity">
+            <a href="buffets.html" th:href="@{/buffet/get/all}">
+            Buffet
+           </a>
+          </div>
+        </div>
+        <div class="button-container">
+          <a class="button" href="buffetForm.html" th:if="${admin}" th:href="@{/admin/buffet/form/add}">Aggiungi</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+        <div class="box">
+          <div class="title">
+            <div>
+              <a href="piatti.html" th:href="@{/piatto/get/all}">
+              <img class="img-link" src="../static/images/piatto.png" th:src="@{images/piatto.png}">
+            </a>
+            </div>
+            <div class="entity">
+              <a href="piatti.html" th:href="@{/piatto/get/all}">Piatti</a>
+            </div>
+          </div>
+          <div class="button-container">
+            <a class="button" href="piattoForm.html" th:if="${admin}" th:href="@{/admin/piatto/form/add}">Aggiungi</a>
+          </div>
+        </div>
+
+          <div class="box">
+            <div class="title">
+              <div>
+                <a href="ingredienti.html" th:href="@{/ingrediente/get/all}">
+                <img class="img-link" src="../static/images/ingredienti.png" th:src="@{images/ingredienti.png}">
+              </a>
+              </div>
+              <div class="entity">
+                <a href="ingredienti.html" th:href="@{/ingrediente/get/all}">
+                Ingredienti
+              </a>
+              </div>
+            </div>
+            <div class="button-container">
+              <a class="button" href="ingredienteForm.html" th:if="${admin}" th:href="@{/admin/ingrediente/form/add}">Aggiungi</a>
+            </div>
+          </div>
+
+    </div>
+  </body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>

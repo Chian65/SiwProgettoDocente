@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <head th:replace="fragments/base.html :: headerfiles(title='Catering')">
+        <link rel="stylesheet" href="../static/css/style.css">
+    </head>
+    <title>Chef</title>
+</head>
+<body>
+    <header th:replace="fragments/base.html :: home">
+        <a href="home.html" th:href="@{/home}"><img class="logout-home" src="/static/images/home.png"></a>
+    </header>
+    <div class="title">
+        <h2 th:if="!${modified}">Dettagli sullo chef</h2>
+        <h2 th:if="${modified}">Chef aggiornato</h2>
+    </div>
+    <div class="flex-container" th:if="${chef}">
+        <div class="flex">
+            <h2>Chef:</h2>
+            <p th:text="'Nome: ' + ${chef.nome}"></p>
+            <p th:text="'Cognome: ' + ${chef.cognome}"></p>
+            <p th:text="'Nazionalità: ' + ${chef.nazionalita}"></p>
+        </div>
+        <div class="flex">
+            <h2>Piatti:</h2>
+            <ul>
+                <li th:each="piatto : ${chef.piatti}">
+                    <a href="piatto.html" th:href="@{'/piatto/get/' + ${piatto.id}}"
+                    th:text="${piatto.nome} + ': ' + ${piatto.descrizione}"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="flex">
+            <h2>Buffet proposti:</h2>
+            <ul>
+                <li th:each="buffet : ${chef.buffets}">
+                    <a href="buffet.html" th:href="@{'/buffet/get/' + ${buffet.id}}"
+                    th:text="${buffet.nome} + ': ' + ${buffet.descrizione}"></a>
+                </li>
+            </ul>
+        </div>
+        </div>
+        <div class="flex-container">
+            <form th:if=${admin} th:action="@{'/admin/chef/form/modify/' + ${chef.id}}" method="get" th:object="${chef}">
+                <button type="submit">Modifica</button>
+            </form>
+            <form  th:if=${admin} th:action="@{'/admin/chef/delete/' + ${chef.id}}" method="post" th:object="${chef}">
+                <button type="submit">Elimina</button>
+            </form>
+        </div>
+    </div>
+</body>
+<footer th:replace="fragments/base.html :: end"></footer>
+</html>
